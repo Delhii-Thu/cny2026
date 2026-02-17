@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🔮 2026 命运水晶球</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=DM+Sans:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #06060e;
+    color: #fff;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  /* === AURORA === */
+  .aurora {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .aurora-band {
+    position: absolute; width: 200%; height: 40%;
+    border-radius: 50%; filter: blur(80px); opacity: 0.06;
+    animation: auroraFloat 14s ease-in-out infinite alternate;
+  }
+  .aurora-band:nth-child(1) {
+    background: linear-gradient(90deg, #4a0e8f, #1a4fd0, #0e8f6a);
+    top: -10%; left: -50%;
+  }
+  .aurora-band:nth-child(2) {
+    background: linear-gradient(90deg, #8f0e4a, #d04a1a, #d0a01a);
+    bottom: -5%; right: -50%;
+    animation-duration: 18s; animation-delay: -5s;
+  }
+  .aurora-band:nth-child(3) {
+    background: linear-gradient(90deg, #0e4a8f, #6a0ed0, #d01a6a);
+    top: 30%; left: -30%;
+    animation-duration: 16s; animation-delay: -8s; opacity: 0.04;
+  }
+  @keyframes auroraFloat {
+    0% { transform: translateX(0) rotate(0deg); }
+    100% { transform: translateX(15%) rotate(3deg); }
+  }
+
+  /* === STARS === */
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star {
+    position: absolute; background: #fff; border-radius: 50%;
+    animation: twinkle var(--dur) infinite var(--delay);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.05; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.3); }
+  }
+
+  /* === CONTENT === */
+  .content {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 20px;
+  }
+
+  .title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem; font-weight: 900;
+    background: linear-gradient(135deg, #c8b8ff, #fff, #ffd4a8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; letter-spacing: 4px; margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 0.72rem; color: rgba(255,255,255,0.22);
+    margin-bottom: 30px; letter-spacing: 1px;
+  }
+
+  /* ============================
+     CRYSTAL BALL + BASE
+     ============================ */
+  .crystal-wrapper {
+    position: relative;
+    width: 260px; height: 310px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* Orbit rings */
+  .orbit-ring {
+    position: absolute; top: 0; left: 0; right: 0;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(150,130,255,0.06);
+    animation: orbitSpin 20s linear infinite;
+    pointer-events: none;
+  }
+  .orbit-ring::after {
+    content: '✦'; position: absolute; top: -4px; left: 50%;
+    color: rgba(200,180,255,0.4); font-size: 8px;
+  }
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .orbit-ring-2 {
+    position: absolute; top: -10px; left: -10px; right: -10px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(150,130,255,0.03);
+    animation: orbitSpin 30s linear infinite reverse;
+    pointer-events: none;
+  }
+  .orbit-ring-2::after {
+    content: '✧'; position: absolute; bottom: -4px; right: 20%;
+    color: rgba(200,180,255,0.25); font-size: 6px;
+  }
+
+  /* --- The glass sphere --- */
+  .ball {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    position: relative;
+    /* Transparent glassy gradient — the key to looking like crystal */
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(90,70,160,0.15) 0%, rgba(30,20,60,0.8) 50%, rgba(8,6,15,0.95) 70%);
+    border: 1.5px solid rgba(180,170,240,0.18);
+    box-shadow:
+      0 0 60px rgba(120,100,220,0.12),
+      0 0 120px rgba(80,60,180,0.06),
+      inset 0 -30px 60px rgba(0,0,0,0.5),
+      inset 0 10px 30px rgba(200,190,255,0.05);
+    display: flex; align-items: center; justify-content: center;
+    transition: box-shadow 0.4s, border-color 0.4s, transform 0.15s;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .ball:active { transform: scale(0.97); }
+
+  .ball.glowing {
+    box-shadow:
+      0 0 80px rgba(160,140,255,0.3),
+      0 0 180px rgba(120,100,240,0.15),
+      0 0 300px rgba(80,60,200,0.08),
+      inset 0 -30px 60px rgba(0,0,0,0.4),
+      inset 0 10px 30px rgba(200,190,255,0.08);
+    border-color: rgba(200,190,255,0.3);
+  }
+
+  /* --- Glass reflections (the crucial "crystal" look) --- */
+  /* Large crescent highlight top-left */
+  .glass-reflect-1 {
+    position: absolute;
+    width: 120px; height: 65px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.03) 60%, transparent 100%);
+    top: 16px; left: 28px;
+    border-radius: 50%;
+    transform: rotate(-20deg);
+    pointer-events: none; z-index: 5;
+  }
+  /* Small bright dot highlight */
+  .glass-reflect-2 {
+    position: absolute;
+    width: 18px; height: 12px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.45), transparent);
+    top: 36px; left: 48px;
+    border-radius: 50%;
+    pointer-events: none; z-index: 5;
+  }
+  /* Rim light bottom-right */
+  .glass-reflect-3 {
+    position: absolute;
+    width: 80px; height: 35px;
+    background: radial-gradient(ellipse, rgba(200,190,255,0.06), transparent);
+    bottom: 30px; right: 20px;
+    border-radius: 50%;
+    transform: rotate(15deg);
+    pointer-events: none; z-index: 5;
+  }
+
+  /* --- Swirling mist inside the ball --- */
+  .mist {
+    position: absolute; inset: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    pointer-events: none; z-index: 1;
+  }
+  .mist-layer {
+    position: absolute; width: 200%; height: 200%;
+    border-radius: 50%; filter: blur(30px);
+    opacity: 0.06;
+    animation: mistSwirl var(--dur) linear infinite;
+  }
+  .mist-layer:nth-child(1) {
+    background: radial-gradient(circle at 30% 40%, #9b7bff, transparent 60%);
+    top: -50%; left: -50%;
+    --dur: 10s;
+  }
+  .mist-layer:nth-child(2) {
+    background: radial-gradient(circle at 70% 60%, #7ba4f7, transparent 60%);
+    top: -30%; left: -70%;
+    --dur: 14s;
+    animation-direction: reverse;
+  }
+  .mist-layer:nth-child(3) {
+    background: radial-gradient(circle at 50% 30%, #d07bff, transparent 60%);
+    top: -60%; left: -30%;
+    --dur: 18s;
+  }
+  @keyframes mistSwirl {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* --- Inner text window --- */
+  .ball-window {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,12,35,0.9) 0%, rgba(8,6,18,0.95) 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 3;
+    border: 1px solid rgba(120,100,220,0.1);
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.8), 0 0 15px rgba(100,80,200,0.06);
+  }
+
+  .ball-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: rgba(200,185,255,0.9);
+    text-align: center; line-height: 1.5;
+    padding: 8px; white-space: pre-line;
+    opacity: 0; transform: scale(0.7);
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-shadow: 0 0 20px rgba(150,130,255,0.5);
+    z-index: 4;
+  }
+  .ball-text.show { opacity: 1; transform: scale(1); }
+  .ball-text.hide { opacity: 0; transform: scale(0.7); transition: all 0.2s ease; }
+
+  /* --- Subtle silver base --- */
+  .base {
+    position: relative;
+    margin-top: -10px; z-index: 3;
+    width: 160px; height: 30px;
+  }
+  .base-rim {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 90px; height: 12px;
+    background: linear-gradient(180deg, rgba(200,200,220,0.25), rgba(150,150,170,0.15));
+    border-radius: 50%;
+    border: 1px solid rgba(200,200,230,0.1);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+  }
+  .base-body {
+    position: absolute; top: 7px; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 20px;
+    background: linear-gradient(180deg, rgba(150,150,170,0.15), rgba(100,100,120,0.1), rgba(60,60,80,0.08));
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    border: 1px solid rgba(180,180,210,0.08);
+    border-top: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .base-body::after {
+    content: '';
+    position: absolute; top: 4px; left: 15%;
+    width: 70%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,200,230,0.15), transparent);
+  }
+
+  /* === SHAKE === */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    12% { transform: translateX(-10px) rotate(-3deg); }
+    25% { transform: translateX(9px) rotate(2.5deg); }
+    37% { transform: translateX(-7px) rotate(-1.5deg); }
+    50% { transform: translateX(6px) rotate(1.5deg); }
+    62% { transform: translateX(-4px) rotate(-1deg); }
+    75% { transform: translateX(3px) rotate(0.5deg); }
+    87% { transform: translateX(-1px) rotate(-0.2deg); }
+  }
+  .crystal-wrapper.shaking .ball { animation: shake 0.7s ease; }
+
+  /* === RESULT AREA === */
+  .category {
+    font-size: 0.65rem; padding: 3px 12px; border-radius: 12px;
+    border: 1px solid rgba(150,130,255,0.15);
+    color: rgba(180,160,255,0.45); margin-bottom: 14px;
+    opacity: 0; transition: opacity 0.5s ease 0.1s;
+    letter-spacing: 1.5px; background: rgba(100,80,200,0.04);
+  }
+  .category.show { opacity: 1; }
+
+  .hint {
+    font-size: 0.78rem; color: rgba(255,255,255,0.22);
+    margin-bottom: 10px; animation: hintPulse 2.5s infinite;
+  }
+  @keyframes hintPulse {
+    0%, 100% { opacity: 0.22; }
+    50% { opacity: 0.45; }
+  }
+  .hint.hidden { opacity: 0 !important; animation: none; }
+
+  .detail {
+    font-size: 0.8rem; color: rgba(255,255,255,0.32);
+    text-align: center; max-width: 280px; line-height: 1.8;
+    min-height: 50px; opacity: 0; transition: opacity 0.5s ease 0.3s;
+    white-space: pre-line;
+  }
+  .detail.show { opacity: 1; }
+
+  .counter-area {
+    margin-top: 20px; font-size: 0.68rem; color: rgba(255,255,255,0.12);
+  }
+
+  /* === CANVAS === */
+  #particleCanvas {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  }
+
+  .confetti-piece { position: fixed; z-index: 200; pointer-events: none; }
+
+  .footer {
+    position: fixed; bottom: 14px;
+    font-size: 0.6rem; color: rgba(255,255,255,0.08); z-index: 1;
+  }
+
+  @media (max-width: 360px) {
+    .crystal-wrapper { width: 230px; }
+    .ball { width: 210px; height: 210px; }
+    .ball-window { width: 95px; height: 95px; }
+    .ball-text { font-size: 0.82rem; }
+    .title { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="aurora">
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+</div>
+<div class="stars" id="stars"></div>
+<canvas id="particleCanvas"></canvas>
+
+<div class="content">
+  <div class="title">2026 命运水晶球</div>
+  <div class="subtitle">准确率 100%（自封的）</div>
+
+  <div class="crystal-wrapper" id="crystalWrapper" onclick="predict()">
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring-2"></div>
+
+    <div class="ball" id="ball">
+      <!-- Glass reflections -->
+      <div class="glass-reflect-1"></div>
+      <div class="glass-reflect-2"></div>
+      <div class="glass-reflect-3"></div>
+      <!-- Swirling mist -->
+      <div class="mist">
+        <div class="mist-layer"></div>
+        <div class="mist-layer"></div>
+        <div class="mist-layer"></div>
+      </div>
+      <!-- Inner window -->
+      <div class="ball-window">
+        <div class="ball-text" id="ballText">?</div>
+      </div>
+    </div>
+
+    <!-- Golden base -->
+    <div class="base">
+      <div class="base-rim"></div>
+      <div class="base-body"></div>
+    </div>
+  </div>
+
+  <div class="category" id="category"></div>
+  <div class="hint" id="hint">🔮 点一下 或 摇一摇</div>
+  <div class="detail" id="detail"></div>
+</div>
+
+<div class="counter-area" id="counterArea"></div>
+<div class="footer">From DLK · 新年快乐 🐴</div>
+
+<script>
+// ===== ALL 33 PREDICTIONS =====
+const predictions = [
+  { cat: '💰 财运', text: '暴富', detail: '2026 年会突然有钱\n具体多有钱不好说 反正够花' },
+  { cat: '💰 财运', text: '钱会来\n找你', detail: '你不用找钱 钱会自己来\n它认识路' },
+  { cat: '💰 财运', text: '花不完', detail: '2026 年你的财务状况：\n收入 > 支出 > 想象力' },
+  { cat: '💰 财运', text: '财源\n滚滚', detail: '钱从东南西北来\n挡都挡不住 不如不挡' },
+  { cat: '💰 财运', text: '年终奖\n翻倍', detail: '老板看完你的业绩\n沉默了三秒 然后转了一笔巨款' },
+  { cat: '💼 事业', text: '要升了', detail: '你的事业即将起飞\n请系好安全带' },
+  { cat: '💼 事业', text: '前途\n无量', detail: '2026 年你走的每一步\n事后来看都是对的' },
+  { cat: '💼 事业', text: '贵人\n来了', detail: '2026 年会遇到帮你的人\n可能已经遇到了 你还没发现' },
+  { cat: '💼 事业', text: '一路\n绿灯', detail: '不管做什么\n2026 年通通一路畅通' },
+  { cat: '✨ 运气', text: '欧皇\n附体', detail: '2026 年运气值已满\n建议自己留着用 不要分给别人' },
+  { cat: '✨ 运气', text: '挡不住', detail: '好运挡都挡不住\n你躲它也会拐弯来找你' },
+  { cat: '✨ 运气', text: '稳了', detail: '你担心的那件事\n放心吧 稳了' },
+  { cat: '✨ 运气', text: '触发\n隐藏buff', detail: '2026 年你将激活\n一个别人都没有的隐藏加成' },
+  { cat: '✨ 运气', text: '好事\n成双', detail: '2026 年好事不会只来一件\n至少来两件 多了不封顶' },
+  { cat: '💪 健康', text: '越来越\n好看', detail: '2026 年颜值将持续上涨\n建议提前准备应对夸奖的话术' },
+  { cat: '💪 健康', text: '百毒\n不侵', detail: '2026 年疾病看到你会绕道\n因为你气场太强了' },
+  { cat: '💪 健康', text: '精力\n充沛', detail: '2026 年你的能量条永远是满的\n别人还在充电 你已经又出发了' },
+  { cat: '💪 健康', text: '越活\n越年轻', detail: '2026 年的你看起来\n比 2025 年更年轻 这是预测不是客套' },
+  { cat: '🏠 生活', text: '万事\n顺心', detail: '大事小事都顺\n出门不堵车 快递不丢件 外卖不撒汤' },
+  { cat: '🏠 生活', text: '吃嘛\n嘛香', detail: '2026 年的你\n胃口好 心情好 睡眠好\n三好合一 无敌了' },
+  { cat: '🏠 生活', text: '家和\n万事兴', detail: '一家人都好好的\n就是最大的好运' },
+  { cat: '🏠 生活', text: '天天\n好心情', detail: '2026 年烦心事同比下降 95%\n剩下 5% 是"今天吃什么"' },
+  { cat: '🎯 玄学', text: '心想\n事成', detail: '这不是祝福 这是预测\n你想的事情 都会成' },
+  { cat: '🎯 玄学', text: '什么\n都不缺', detail: '命里缺什么？\n水晶球看了一圈：什么都不缺' },
+  { cat: '🎯 玄学', text: '大吉', detail: '上上签中的上上签\n水晶球很少给这个评级' },
+  { cat: '🎯 玄学', text: '否极\n泰来', detail: '所有不顺的事\n到 2026 年全部反转' },
+  { cat: '🎯 玄学', text: '时来\n运转', detail: '属于你的时代\n从 2026 年正式开始' },
+  { cat: '🐴 马年限定', text: '马上\n有钱', detail: '马上 = 立刻\n有钱 = 字面意思\n不接受反驳' },
+  { cat: '🐴 马年限定', text: '一马\n当先', detail: '2026 年你就是那匹黑马\n别人还在起跑 你已经到了' },
+  { cat: '🐴 马年限定', text: '马到\n成功', detail: '做什么成什么\n水晶球说的 不是我说的' },
+  { cat: '🐴 马年限定', text: '龙马\n精神', detail: '2026 年精气神满满\n干劲十足 状态拉满' },
+  { cat: '🐴 马年限定', text: '万马\n奔腾', detail: '形容你 2026 年的势头\n拦都拦不住那种' },
+  { cat: '🐴 马年限定', text: '快马\n加鞭', detail: '好事正在加速向你赶来\n预计到达时间：马上' },
+];
+
+let predIdx = 0, count = 0, isAnimating = false;
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const shuffled = shuffle([...predictions]);
+
+// ===== PREDICT =====
+function predict() {
+  if (isAnimating) return;
+  isAnimating = true;
+  count++;
+
+  const wrapper = document.getElementById('crystalWrapper');
+  const ball = document.getElementById('ball');
+  const textEl = document.getElementById('ballText');
+  const detailEl = document.getElementById('detail');
+  const catEl = document.getElementById('category');
+  const hint = document.getElementById('hint');
+
+  // Hide current text
+  textEl.classList.remove('show');
+  textEl.classList.add('hide');
+  detailEl.classList.remove('show');
+  catEl.classList.remove('show');
+  hint.classList.add('hidden');
+
+  // Shake animation
+  wrapper.classList.remove('shaking');
+  void wrapper.offsetWidth;
+  wrapper.classList.add('shaking');
+
+  // Glow effect
+  ball.classList.add('glowing');
+  burstParticles();
+
+  const pred = shuffled[predIdx % shuffled.length];
+  predIdx++;
+
+  // Reveal after shake
+  setTimeout(() => {
+    textEl.textContent = pred.text;
+    textEl.classList.remove('hide');
+    textEl.classList.add('show');
+
+    catEl.textContent = pred.cat;
+    catEl.classList.add('show');
+
+    detailEl.textContent = pred.detail;
+    detailEl.classList.add('show');
+
+    document.getElementById('counterArea').textContent =
+      '已预测 ' + count + ' 次 · 每一条都准';
+
+    if (count % 3 === 0) launchConfetti();
+
+    setTimeout(() => {
+      ball.classList.remove('glowing');
+      isAnimating = false;
+    }, 500);
+  }, 800);
+}
+
+// ===== SHAKE DETECTION =====
+let lastShake = 0;
+if (window.DeviceMotionEvent) {
+  window.addEventListener('devicemotion', function(e) {
+    const a = e.accelerationIncludingGravity;
+    if (!a) return;
+    const f = Math.abs(a.x) + Math.abs(a.y) + Math.abs(a.z);
+    if (f > 28 && Date.now() - lastShake > 1500) {
+      lastShake = Date.now();
+      predict();
+    }
+  });
+}
+
+// ===== STARFIELD =====
+(function() {
+  var el = document.getElementById('stars');
+  for (var i = 0; i < 80; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    var sz = (1 + Math.random() * 2) + 'px';
+    s.style.width = sz; s.style.height = sz;
+    s.style.setProperty('--dur', (2 + Math.random() * 5) + 's');
+    s.style.setProperty('--delay', (Math.random() * 4) + 's');
+    el.appendChild(s);
+  }
+})();
+
+// ===== PARTICLE BURST =====
+var pCanvas = document.getElementById('particleCanvas');
+var pCtx = pCanvas.getContext('2d');
+function resizeCanvas() {
+  pCanvas.width = window.innerWidth;
+  pCanvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+var particles = [];
+
+function burstParticles() {
+  var cx = pCanvas.width / 2;
+  var cy = pCanvas.height * 0.36;
+  var colors = [[180,160,255],[140,120,220],[200,180,255],[255,215,130],[130,200,255]];
+  for (var i = 0; i < 40; i++) {
+    var angle = Math.random() * Math.PI * 2;
+    var speed = 1 + Math.random() * 3.5;
+    var c = colors[Math.floor(Math.random() * colors.length)];
+    particles.push({
+      x: cx, y: cy,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 80,
+      r: c[0], g: c[1], b: c[2],
+      size: 1.5 + Math.random() * 2
+    });
+  }
+}
+
+function animLoop() {
+  pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+  for (var i = particles.length - 1; i >= 0; i--) {
+    var p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vx *= 0.97;
+    p.vy *= 0.97;
+    p.life--;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    var alpha = (p.life / 80) * 0.7;
+    var radius = p.size * (p.life / 80);
+    // SAFETY: ensure radius is never negative
+    if (radius < 0.1) { particles.splice(i, 1); continue; }
+    pCtx.beginPath();
+    pCtx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+    pCtx.fillStyle = 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + alpha + ')';
+    pCtx.fill();
+  }
+  requestAnimationFrame(animLoop);
+}
+animLoop();
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  var colors = ['#8B7BFF','#FFD700','#FF6B8A','#5CE0D8','#FFA64D','#FF4757','#C8B8FF'];
+  var emojis = ['🐴','✨','💰','🧧','🎊','🔥','💎','🍊'];
+  for (var i = 0; i < 40; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var el = document.createElement('div');
+        el.className = 'confetti-piece';
+        if (Math.random() > 0.6) {
+          el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          el.style.fontSize = (12 + Math.random() * 14) + 'px';
+        } else {
+          el.style.width = (4 + Math.random() * 7) + 'px';
+          el.style.height = (4 + Math.random() * 7) + 'px';
+          el.style.background = colors[Math.floor(Math.random() * colors.length)];
+          el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        }
+        var sx = 20 + Math.random() * 60;
+        el.style.left = sx + '%'; el.style.top = '40%';
+        document.body.appendChild(el);
+        var x = sx, y = 40, vx = (Math.random()-0.5)*8, vy = -(3.5+Math.random()*6);
+        var op = 1, rot = 0;
+        function anim() {
+          vy += 0.14; vx *= 0.99;
+          x += vx*0.3; y += vy*0.3;
+          op -= 0.009; rot += vx*3;
+          el.style.left = x+'%'; el.style.top = y+'%';
+          el.style.opacity = Math.max(0, op);
+          el.style.transform = 'rotate('+rot+'deg)';
+          if (op > 0 && y < 120) requestAnimationFrame(anim);
+          else el.remove();
+        }
+        anim();
+      }, i * 30);
+    })(i);
+  }
+}
+
+// Show initial "?"
+document.getElementById('ballText').classList.add('show');
+</script>
+</body>
+</html>
