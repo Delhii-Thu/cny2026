@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>OpenReview — Submission #2026 | 关于2026年度"新春快乐"的正式通知</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;900&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --nav-bg: #8c1515;
+    --nav-text: #fff;
+    --bg: #f5f5f0;
+    --card-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --border: #ddd;
+    --link: #1a5276;
+    --accept-green: #1b7a2b;
+    --tag-bg: #e8f0fe;
+    --tag-text: #1a5276;
+    --gold: #D4A017;
+    --red: #c0272d;
+  }
+
+  body {
+    font-family: 'Noto Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* === NAV BAR (OpenReview style) === */
+  .navbar {
+    background: var(--nav-bg);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--nav-text);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo svg {
+    width: 22px; height: 22px;
+    fill: var(--nav-text);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+  .nav-links span { cursor: pointer; }
+  .nav-links span:hover { color: #fff; }
+
+  /* === BREADCRUMB === */
+  .breadcrumb {
+    padding: 12px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+  .breadcrumb a { color: var(--link); text-decoration: none; }
+
+  /* === MAIN CONTAINER === */
+  .main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* === PAPER HEADER === */
+  .paper-header {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+  }
+
+  .paper-venue {
+    display: inline-block;
+    background: var(--nav-bg);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .paper-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+
+  .paper-authors {
+    font-size: 13px;
+    color: var(--link);
+    margin-bottom: 10px;
+    line-height: 1.8;
+  }
+  .paper-authors span {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    cursor: pointer;
+  }
+
+  .paper-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .meta-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-weight: 500;
+  }
+
+  /* === ABSTRACT === */
+  .section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--nav-bg);
+    display: inline-block;
+  }
+
+  .abstract-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    text-align: justify;
+  }
+
+  /* === STATUS AREA === */
+  .status-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .status-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff3cd;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 12px;
+    border: 2px solid #ffc107;
+  }
+
+  .status-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .status-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #856404;
+  }
+
+  .check-btn {
+    margin-top: 18px;
+    padding: 10px 32px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--nav-bg);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .check-btn:hover { background: #6d1010; }
+  .check-btn:active { transform: scale(0.97); }
+  .check-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
+  }
+
+  /* === LOADING === */
+  .loading-bar {
+    display: none;
+    margin: 16px auto;
+    width: 100%;
+    max-width: 300px;
+    height: 4px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .loading-bar.active { display: block; }
+
+  .loading-bar::after {
+    content: '';
+    display: block;
+    width: 40%;
+    height: 100%;
+    background: var(--nav-bg);
+    border-radius: 4px;
+    animation: loadSlide 1.2s ease-in-out infinite;
+  }
+
+  @keyframes loadSlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+
+  .loading-text {
+    display: none;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .loading-text.active { display: block; }
+
+  /* === REVIEWS === */
+  .reviews-container {
+    display: none;
+  }
+
+  .reviews-container.show { display: block; }
+
+  .review-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.5s ease;
+    position: relative;
+  }
+
+  .review-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reviewer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .reviewer-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+
+  .reviewer-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .badge-accept { background: #d4edda; color: #155724; }
+  .badge-minor { background: #fff3cd; color: #856404; }
+  .badge-strong { background: #cce5ff; color: #004085; }
+
+  .review-field {
+    margin-bottom: 12px;
+  }
+
+  .review-field-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .review-field-value {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .rating-stars {
+    color: #f5a623;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .confidence-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .conf-track {
+    flex: 1;
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .conf-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--nav-bg);
+    transition: width 1s ease;
+    width: 0;
+  }
+
+  .conf-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* === DECISION BANNER === */
+  .decision-banner {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .decision-banner.show {
+    display: block;
+    animation: bannerReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes bannerReveal {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .decision-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #c0272d, #8B0000);
+    z-index: 0;
+  }
+
+  .decision-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,215,0,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255,215,0,0.1) 0%, transparent 50%);
+  }
+
+  .decision-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .decision-stamp {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 6px;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    margin-bottom: 8px;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  .decision-cn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #FFD700;
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .decision-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.8;
+  }
+
+  .decision-final {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(255,215,0,0.1);
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 8px;
+  }
+
+  .decision-final p {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    color: #FFD700;
+    line-height: 2;
+    letter-spacing: 2px;
+  }
+
+  /* === FIREWORKS OVERLAY === */
+  #fireworksCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    display: none;
+  }
+
+  #fireworksCanvas.active { display: block; }
+
+  /* === CONFETTI === */
+  .confetti-piece {
+    position: fixed;
+    z-index: 201;
+    pointer-events: none;
+  }
+
+  /* === NOTIFICATION TOAST === */
+  .toast {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accept-green);
+    border-radius: 6px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 150;
+    font-size: 13px;
+    max-width: 340px;
+    width: 90%;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .toast-body { color: var(--text-secondary); }
+
+  /* === FOOTER === */
+  .fake-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  /* === ACCEPT STAMP WATERMARK === */
+  .stamp-watermark {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    z-index: 199;
+    pointer-events: none;
+  }
+
+  .stamp-watermark.show {
+    display: block;
+    animation: stampIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes stampIn {
+    0% { transform: translate(-50%, -50%) rotate(-15deg) scale(3); opacity: 0; }
+    100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); opacity: 1; }
+  }
+
+  .stamp-ring {
+    width: 220px;
+    height: 220px;
+    border: 6px solid rgba(212, 33, 61, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(2px);
+  }
+
+  .stamp-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: rgba(212, 33, 61, 0.8);
+    letter-spacing: 6px;
+  }
+
+  .stamp-sub {
+    font-size: 12px;
+    color: rgba(212, 33, 61, 0.6);
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 480px) {
+    .paper-title { font-size: 17px; }
+    .decision-stamp { font-size: 36px; }
+    .decision-cn { font-size: 22px; }
+    .stamp-ring { width: 180px; height: 180px; }
+    .stamp-text { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    SpringFestivalReview.cc
+  </div>
+  <div class="nav-links">
+    <span>Venues</span>
+    <span>My Profile</span>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">CNY 2026</a> &rsaquo;
+  <a href="#">Conference Track</a> &rsaquo;
+  Submission #2026
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- PAPER HEADER -->
+  <div class="paper-header">
+    <div class="paper-venue">CNY 2026 — The 4724th Annual Chinese New Year Conference</div>
+    <h1 class="paper-title">关于 2026 年度"新春快乐"的正式通知与祝福（全文）</h1>
+    <div class="paper-authors">
+      <span>Your student DLK</span>
+    </div>
+    <div class="paper-meta">
+      <span class="meta-tag">🐴 马年特稿</span>
+      <span class="meta-tag">Submitted: 除夕夜 23:59</span>
+      <span class="meta-tag">Keywords: 新春快乐, 身体健康, 工作顺利, 万事如意</span>
+      <span class="meta-tag">Pages: 1 (but heartfelt)</span>
+    </div>
+  </div>
+
+  <!-- ABSTRACT -->
+  <div class="section-card">
+    <div class="section-title">Abstract</div>
+    <p class="abstract-text">
+      本研究探讨了春节祝福信息在学术圈的传播机制与接收效果。通过对 2,026 名高校教师的问卷调查（回收率 99.9%，唯一未回收的那位正在审稿），我们发现：教师群体在春节期间收到的祝福消息中，87% 为模板群发，11% 为表情包轰炸，仅 2% 具有"让人真的会心一笑"的效果（p&lt;0.05）。本文提出了一种新型祝福投递方案——基于学术审稿系统的沉浸式祝福体验（Immersive Blessing via Peer Review, IBPR），旨在将这一比例提升至 100%。您正在阅读的就是该方案的首次实验。
+    </p>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-section" id="statusSection">
+    <div class="status-icon">⏳</div>
+    <div class="status-label">Current Status</div>
+    <div class="status-value" id="statusText">Decision Pending — Under Review</div>
+    <div class="loading-bar" id="loadingBar"></div>
+    <div class="loading-text" id="loadingText"></div>
+    <button class="check-btn" id="checkBtn" onclick="startReview()">
+      📋 Check Decision
+    </button>
+  </div>
+
+  <!-- REVIEWS (hidden initially) -->
+  <div class="reviews-container" id="reviewsContainer">
+
+    <div class="section-card" style="margin-bottom: 16px; opacity: 0; transform: translateY(10px); transition: all 0.5s;" id="reviewsHeader">
+      <div class="section-title">Official Reviews (3)</div>
+      <p style="font-size: 12px; color: var(--text-muted);">All reviews have been submitted. Area Chair meta-review is included below.</p>
+    </div>
+
+    <!-- Reviewer 1 -->
+    <div class="review-card" id="review1">
+      <div class="reviewer-header">
+        <div>
+          <div class="reviewer-name">🎭 Reviewer #1 (Anonymous)</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Area: Pedagogical Impact Assessment</div>
+        </div>
+        <span class="reviewer-badge badge-strong">Strong Accept</span>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Overall Rating</div>
+        <div class="rating-stars">★★★★★ <span style="font-size:12px; color:var(--text-secondary);">9/10 — Genuinely impressive</span></div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Summary</div>
+        <div class="review-field-value">A well-grounded study. The data clearly shows that a good teacher's influence goes beyond academics — it shapes how students think about problems, handle setbacks, and approach their careers.</div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Strengths</div>
+        <div class="review-field-value">
+          ✅ The long-term follow-up data is convincing — students report positive effects years after graduation.<br>
+          ✅ The qualitative feedback section is unexpectedly moving. Multiple respondents used the phrase "很庆幸遇到了好老师".<br>
+          ✅ Methodology is sound and the conclusions are appropriately scoped.
+        </div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Weaknesses</div>
+        <div class="review-field-value">The paper is too short. I was enjoying it and wanted more pages. Regrettably, this does not constitute a valid academic criticism.</div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Confidence</div>
+        <div class="confidence-bar">
+          <div class="conf-track"><div class="conf-fill" data-width="90"></div></div>
+          <span class="conf-label">4/5 — Confident in these findings</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviewer 2 (the strict one) -->
+    <div class="review-card" id="review2">
+      <div class="reviewer-header">
+        <div>
+          <div class="reviewer-name">👺 Reviewer #2 (Anonymous)</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Area: Critical Blessing Analysis · <span style="color:var(--red);">Known for harsh reviews</span></div>
+        </div>
+        <span class="reviewer-badge badge-minor">Minor Revision → Accept</span>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Overall Rating</div>
+        <div class="rating-stars">★★★★☆ <span style="font-size:12px; color:var(--text-secondary);">8/10 — I don't give this score lightly</span></div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Summary</div>
+        <div class="review-field-value">The paper is solid overall. The claim that "好老师的影响是长期的" is well-supported by evidence. I accept the main conclusions.</div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Strengths</div>
+        <div class="review-field-value">
+          ✅ The longitudinal design is appropriate for studying long-term effects.<br>
+          ✅ The control group comparison ("有好老师 vs 没遇到好老师") demonstrates a clear difference in outcomes.
+        </div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Weaknesses & Required Revisions</div>
+        <div class="review-field-value" style="background:#fff8e6; padding: 10px; border-radius: 4px; border-left: 3px solid #ffc107;">
+          ⚠️ <strong>Minor Revision Required:</strong><br>
+          1. The teacher's 年假天数 appears insufficient. Strongly recommend increasing to a healthier level.<br>
+          2. Section 5 "新年愿望" is missing a key variable: the teacher should 多关注身体健康.<br>
+          3. The student-submitted "感谢信" dataset is too small. Suggest this paper itself counts as one additional data point.<br><br>
+          <em>After these revisions: <strong>Accept.</strong></em> 新年快乐！🐴
+        </div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Confidence</div>
+        <div class="confidence-bar">
+          <div class="conf-track"><div class="conf-fill" data-width="88"></div></div>
+          <span class="conf-label">4/5 — Confident after careful evaluation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviewer 3 (Area Chair) -->
+    <div class="review-card" id="review3">
+      <div class="reviewer-header">
+        <div>
+          <div class="reviewer-name">🌟 Area Chair — Meta Review</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Senior Area Chair · Spring Festival Committee</div>
+        </div>
+        <span class="reviewer-badge badge-accept">Accept (Oral)</span>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Meta-Review Summary</div>
+        <div class="review-field-value">
+          Reviewers are in agreement. The paper makes a clear and honest case. The Spring Festival Committee recognizes that behind every student's growth, there are teachers who gave their time, knowledge, and patience — often without being thanked enough.
+        </div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Recommendation to Program Committee</div>
+        <div class="review-field-value" style="background: #d4edda; padding: 12px; border-radius: 4px; border-left: 3px solid var(--accept-green);">
+          <strong>ACCEPT as Oral Presentation</strong> 🎉<br><br>
+          谨代表 Spring Festival Program Committee：<br>
+          祝老师新的一年身体健康、工作顺利、生活愉快。<br>
+          感谢您的付出，新年快乐！<br><br>
+          <em>— Spring Festival Program Committee</em>
+        </div>
+      </div>
+      <div class="review-field">
+        <div class="review-field-label">Confidence</div>
+        <div class="confidence-bar">
+          <div class="conf-track"><div class="conf-fill" data-width="100"></div></div>
+          <span class="conf-label">5/5 — The Spring Festival Committee is NEVER wrong</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION BANNER (hidden initially) -->
+  <div class="decision-banner" id="decisionBanner">
+    <div class="decision-bg"></div>
+    <div class="decision-content">
+      <div class="decision-stamp">✨ ACCEPTED ✨</div>
+      <div class="decision-cn">馬到成功</div>
+      <div class="decision-sub">
+        Congratulations! Your submission has been accepted to<br>
+        <strong>CNY 2026 — The 4724th Annual Chinese New Year Conference</strong>
+      </div>
+      <div class="decision-final">
+        <p>
+          🧧 新春快乐 万事如意 🧧<br>
+          🐴 马年大吉 身体康健 🐴<br>
+          📚 工作顺利 生活愉快 📚<br>
+          💪 阖家幸福 平安喜乐 💪
+        </p>
+      </div>
+      <p style="margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.5);">
+        —— 学生 DLK 敬贺新春 · 2026 丙午马年 ——
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="fake-footer">
+    SpringFestivalReview.cc &copy; 2026 · Powered by 饺子 and 红包<br>
+    <span style="font-size:10px;">From DLK 🎆</span>
+  </div>
+
+</div>
+
+<!-- STAMP WATERMARK -->
+<div class="stamp-watermark" id="stampWatermark">
+  <div class="stamp-ring">
+    <div class="stamp-text">录 用</div>
+    <div class="stamp-sub">CNY 2026 ACCEPTED</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title">📧 New Notification</div>
+  <div class="toast-body" id="toastBody">Decision is now available for Submission #2026.</div>
+</div>
+
+<!-- FIREWORKS CANVAS -->
+<canvas id="fireworksCanvas"></canvas>
+
+<script>
+// ===== STATE =====
+let phase = 0; // 0=initial, 1=loading, 2=reviews, 3=decision
+
+// ===== CHECK DECISION =====
+function startReview() {
+  if (phase !== 0) return;
+  phase = 1;
+
+  const btn = document.getElementById('checkBtn');
+  const bar = document.getElementById('loadingBar');
+  const loadText = document.getElementById('loadingText');
+
+  btn.disabled = true;
+  btn.textContent = 'Fetching decision...';
+  bar.classList.add('active');
+  loadText.classList.add('active');
+
+  const loadMsgs = [
+    'Connecting to SpringFestivalReview server...',
+    'Authenticating session... ✓',
+    'Loading reviewer comments [1/3]...',
+    'Loading reviewer comments [2/3]...',
+    'Loading reviewer comments [3/3]...',
+    'Compiling area chair meta-review...',
+    'Decrypting final decision...',
+    'Done ✓',
+  ];
+
+  let msgIdx = 0;
+  const interval = setInterval(() => {
+    if (msgIdx < loadMsgs.length) {
+      loadText.textContent = loadMsgs[msgIdx];
+      msgIdx++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 600);
+
+  setTimeout(() => {
+    bar.classList.remove('active');
+    loadText.classList.remove('active');
+    btn.style.display = 'none';
+
+    document.getElementById('statusText').textContent = 'Decision Available — See Below ↓';
+    document.querySelector('.status-icon').textContent = '📬';
+    document.querySelector('.status-icon').style.borderColor = 'var(--accept-green)';
+    document.querySelector('.status-icon').style.background = '#d4edda';
+    document.getElementById('statusText').style.color = 'var(--accept-green)';
+
+    showToast('Decision for Submission #2026 is ready!');
+    showReviews();
+  }, loadMsgs.length * 600 + 500);
+}
+
+// ===== SHOW REVIEWS =====
+function showReviews() {
+  phase = 2;
+  const container = document.getElementById('reviewsContainer');
+  container.classList.add('show');
+
+  // header
+  setTimeout(() => {
+    const h = document.getElementById('reviewsHeader');
+    h.style.opacity = '1';
+    h.style.transform = 'translateY(0)';
+  }, 200);
+
+  // Review 1
+  setTimeout(() => {
+    const r = document.getElementById('review1');
+    r.classList.add('visible');
+    animateConfidenceBars(r);
+    scrollTo(r);
+  }, 800);
+
+  // Review 2
+  setTimeout(() => {
+    const r = document.getElementById('review2');
+    r.classList.add('visible');
+    animateConfidenceBars(r);
+    scrollTo(r);
+  }, 2500);
+
+  // Review 3 (Area Chair)
+  setTimeout(() => {
+    const r = document.getElementById('review3');
+    r.classList.add('visible');
+    animateConfidenceBars(r);
+    scrollTo(r);
+  }, 4200);
+
+  // Final Decision
+  setTimeout(() => {
+    showDecision();
+  }, 6000);
+}
+
+function animateConfidenceBars(el) {
+  el.querySelectorAll('.conf-fill').forEach(bar => {
+    setTimeout(() => {
+      bar.style.width = bar.dataset.width + '%';
+    }, 300);
+  });
+}
+
+function scrollTo(el) {
+  setTimeout(() => {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+// ===== SHOW DECISION =====
+function showDecision() {
+  phase = 3;
+
+  const banner = document.getElementById('decisionBanner');
+  banner.classList.add('show');
+
+  setTimeout(() => {
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+
+  // stamp watermark
+  setTimeout(() => {
+    document.getElementById('stampWatermark').classList.add('show');
+  }, 600);
+
+  // fireworks
+  setTimeout(() => {
+    startFireworks();
+  }, 400);
+
+  // confetti
+  setTimeout(launchConfetti, 300);
+  setTimeout(launchConfetti, 1000);
+  setTimeout(launchConfetti, 1800);
+
+  // celebration toast
+  setTimeout(() => {
+    showToast('🎆 新春快乐！马年大吉！🐴');
+  }, 1200);
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastBody').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ===== FIREWORKS =====
+function startFireworks() {
+  const canvas = document.getElementById('fireworksCanvas');
+  canvas.classList.add('active');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const colors = [
+    'rgba(255,215,0,', 'rgba(255,69,0,', 'rgba(255,105,80,',
+    'rgba(255,200,100,', 'rgba(255,80,80,', 'rgba(192,39,45,'
+  ];
+
+  function createBurst(x, y) {
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const count = 35 + Math.random() * 25;
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 / count) * i;
+      const speed = 1.5 + Math.random() * 3;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 60 + Math.random() * 30,
+        maxLife: 90,
+        color,
+        gravity: 0.025
+      });
+    }
+  }
+
+  let frame = 0;
+  const totalFrames = 300;
+
+  function animate() {
+    if (frame > totalFrames && particles.length === 0) {
+      canvas.classList.remove('active');
+      return;
+    }
+
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (frame < totalFrames && frame % 25 === 0) {
+      createBurst(
+        canvas.width * 0.2 + Math.random() * canvas.width * 0.6,
+        canvas.height * 0.15 + Math.random() * canvas.height * 0.4
+      );
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += p.gravity;
+      p.vx *= 0.99;
+      p.life--;
+
+      const alpha = Math.max(0, p.life / p.maxLife);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2.5 * alpha, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + alpha + ')';
+      ctx.fill();
+
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+
+    frame++;
+    requestAnimationFrame(animate);
+  }
+
+  createBurst(canvas.width * 0.5, canvas.height * 0.35);
+  createBurst(canvas.width * 0.3, canvas.height * 0.25);
+  createBurst(canvas.width * 0.7, canvas.height * 0.3);
+  animate();
+}
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  const colors = ['#FFD700', '#FF4444', '#FF8C00', '#c0272d', '#FFF8DC', '#ff6b6b', '#ffa502'];
+  const emojis = ['🧧', '🐴', '✨', '🎊', '💰'];
+
+  for (let i = 0; i < 40; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+
+      const useEmoji = Math.random() > 0.7;
+      if (useEmoji) {
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.fontSize = (12 + Math.random() * 14) + 'px';
+      } else {
+        el.style.width = (5 + Math.random() * 8) + 'px';
+        el.style.height = (5 + Math.random() * 8) + 'px';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      }
+
+      const startX = 30 + Math.random() * 40;
+      el.style.left = startX + '%';
+      el.style.top = '40%';
+      document.body.appendChild(el);
+
+      let x = startX;
+      let y = 40;
+      let vx = (Math.random() - 0.5) * 6;
+      let vy = -(3 + Math.random() * 5);
+      let opacity = 1;
+      let rotation = 0;
+
+      function animPiece() {
+        vy += 0.12;
+        vx *= 0.99;
+        x += vx * 0.3;
+        y += vy * 0.3;
+        opacity -= 0.008;
+        rotation += vx * 3;
+
+        el.style.left = x + '%';
+        el.style.top = y + '%';
+        el.style.opacity = Math.max(0, opacity);
+        el.style.transform = `rotate(${rotation}deg)`;
+
+        if (opacity > 0 && y < 110) {
+          requestAnimationFrame(animPiece);
+        } else {
+          el.remove();
+        }
+      }
+      animPiece();
+    }, i * 40);
+  }
+}
+
+// ===== TOUCH SPARKLE =====
+document.addEventListener('touchstart', (e) => {
+  if (phase < 3) return;
+  for (let i = 0; i < 4; i++) {
+    const spark = document.createElement('div');
+    spark.style.cssText = `
+      position:fixed; width:6px; height:6px; background:#FFD700;
+      border-radius:50%; pointer-events:none; z-index:300;
+      left:${e.touches[0].clientX + (Math.random()-0.5)*30}px;
+      top:${e.touches[0].clientY + (Math.random()-0.5)*30}px;
+    `;
+    document.body.appendChild(spark);
+    spark.animate([
+      { transform: 'scale(1)', opacity: 1 },
+      { transform: `scale(0) translateY(-${30+Math.random()*30}px)`, opacity: 0 }
+    ], { duration: 800, fill: 'forwards' });
+    setTimeout(() => spark.remove(), 900);
+  }
+});
+</script>
+
+</body>
+</html>
