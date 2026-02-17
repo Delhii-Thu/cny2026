@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🎰 新春祝福老虎机</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=DM+Sans:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #1a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  /* === BACKGROUND GLOW === */
+  body::before {
+    content: '';
+    position: fixed;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,30,30,0.15) 0%, transparent 70%);
+    top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* === TITLE === */
+  .title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 0 2px 12px rgba(255,215,0,0.3);
+    margin-bottom: 8px;
+    letter-spacing: 4px;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+  }
+
+  /* === MACHINE BODY === */
+  .machine {
+    position: relative;
+    background: linear-gradient(180deg, #2a0e0e 0%, #1a0808 100%);
+    border: 3px solid #8B0000;
+    border-radius: 20px;
+    padding: 28px 20px 24px;
+    box-shadow:
+      0 0 40px rgba(139,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.05),
+      0 20px 60px rgba(0,0,0,0.5);
+    width: 320px;
+    max-width: 90vw;
+  }
+
+  .machine::before {
+    content: '🐴 马年大吉 🐴';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #8B0000, #C41E3A);
+    color: #FFD700;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 10px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* === REELS WINDOW === */
+  .reels-frame {
+    background: #0a0404;
+    border: 2px solid #4a1a1a;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 4px 20px rgba(0,0,0,0.8);
+  }
+
+  .reels {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  .reel {
+    width: 88px;
+    height: 90px;
+    background: linear-gradient(180deg, #0d0505, #150808, #0d0505);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #3a1515;
+  }
+
+  .reel-inner {
+    position: absolute;
+    width: 100%;
+    transition: transform 0.1s;
+    will-change: transform;
+  }
+
+  .reel-item {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    flex-shrink: 0;
+  }
+
+  /* Glow line on reels */
+  .reels-frame::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+    margin-top: 4px;
+    border-radius: 1px;
+  }
+
+  /* === RESULT TEXT === */
+  .result-area {
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .result-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFD700;
+    text-align: center;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+
+  .result-text.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .result-sub {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.5s ease 0.2s;
+  }
+
+  .result-sub.show { opacity: 1; }
+
+  /* === PULL BUTTON === */
+  .pull-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #C41E3A, #8B0000);
+    color: #FFD700;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    border: 2px solid #FFD700;
+    border-radius: 12px;
+    cursor: pointer;
+    letter-spacing: 4px;
+    transition: all 0.15s;
+    box-shadow: 0 4px 15px rgba(196,30,58,0.4);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pull-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(196,30,58,0.3);
+  }
+
+  .pull-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* === COUNTER === */
+  .counter {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* === JACKPOT ANIMATION === */
+  .jackpot-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    flex-direction: column;
+  }
+
+  .jackpot-overlay.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .jackpot-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #FFD700;
+    text-shadow: 0 0 30px rgba(255,215,0,0.5);
+    animation: jackpotPulse 0.6s ease infinite alternate;
+    text-align: center;
+    line-height: 1.6;
+    padding: 0 30px;
+  }
+
+  @keyframes jackpotPulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+
+  .jackpot-sub {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    color: rgba(255,215,0,0.7);
+    margin-top: 20px;
+    text-align: center;
+    line-height: 2;
+    padding: 0 30px;
+  }
+
+  .jackpot-close {
+    margin-top: 30px;
+    padding: 10px 30px;
+    background: transparent;
+    border: 1px solid rgba(255,215,0,0.4);
+    color: #FFD700;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  /* === CONFETTI === */
+  .confetti-piece {
+    position: fixed;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  /* === LIGHTS STRIP === */
+  .lights {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    padding: 8px 0;
+  }
+
+  .light {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+
+  .light:nth-child(odd) { background: #FFD700; animation-delay: 0s; }
+  .light:nth-child(even) { background: #C41E3A; animation-delay: 0.75s; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+    50% { opacity: 0.3; box-shadow: none; }
+  }
+
+  /* === FOOTER === */
+  .footer {
+    margin-top: 24px;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* === GRAIN === */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="title">新春祝福老虎机</div>
+<div class="subtitle">手气好的人运气不会差</div>
+
+<div class="machine">
+  <!-- Lights -->
+  <div class="lights">
+    <div class="light"></div><div class="light"></div><div class="light"></div>
+    <div class="light"></div><div class="light"></div><div class="light"></div>
+    <div class="light"></div><div class="light"></div><div class="light"></div>
+  </div>
+
+  <!-- Reels -->
+  <div class="reels-frame">
+    <div class="reels">
+      <div class="reel" id="reel0"><div class="reel-inner" id="inner0"></div></div>
+      <div class="reel" id="reel1"><div class="reel-inner" id="inner1"></div></div>
+      <div class="reel" id="reel2"><div class="reel-inner" id="inner2"></div></div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-area">
+    <div class="result-text" id="resultText">👆 拉一把试试手气</div>
+    <div class="result-sub" id="resultSub"></div>
+  </div>
+
+  <!-- Button -->
+  <button class="pull-btn" id="pullBtn" onclick="pull()">🎰 拉！</button>
+</div>
+
+<div class="counter" id="counter"></div>
+<div class="footer">From 鑫鑫 · 新年快乐 🐴</div>
+
+<!-- JACKPOT OVERLAY -->
+<div class="jackpot-overlay" id="jackpotOverlay">
+  <div class="jackpot-text" id="jackpotText"></div>
+  <div class="jackpot-sub" id="jackpotSub"></div>
+  <button class="jackpot-close" onclick="closeJackpot()">再来一把</button>
+</div>
+
+<script>
+// ===== SLOT DATA =====
+const symbols = ['💰', '🧧', '🐴', '🎉', '👑', '💎', '🔥', '✨', '🍊', '🏆'];
+
+// Each combo: [emoji0, emoji1, emoji2, mainText, subText]
+const combos = [
+  ['💰', '💰', '💰', '一夜暴富', '钱多到要烦恼怎么花'],
+  ['👑', '👑', '👑', '升职加薪', '明年名片上的 title 写不下'],
+  ['🐴', '🐴', '🐴', '马到成功', '做什么都顺 想什么来什么'],
+  ['💎', '💎', '💎', '颜值暴涨', '帅到/美到自己都害怕'],
+  ['🔥', '🔥', '🔥', '事业起飞', '忙是忙 但都是在数钱'],
+  ['🧧', '🧧', '🧧', '红包收到手软', '微信提示：今日收款已达上限'],
+  ['🍊', '🍊', '🍊', '大吉大利', '出门捡钱 回家中奖'],
+  ['🏆', '🏆', '🏆', '人生赢家', '别人的天花板是你的起跑线'],
+  ['✨', '✨', '✨', '心想事成', '想啥啥都有 干啥啥都行'],
+  ['💰', '👑', '🔥', '财权双收', '又有钱又有权 还特别好看'],
+  ['🐴', '💰', '🧧', '马上发财', '字面意思 马上 立刻 现在'],
+  ['💎', '✨', '👑', '全面升级', '2026年的你 会让2025年的你嫉妒'],
+  ['🍊', '🧧', '💰', '财源滚滚', '钱从四面八方来 挡都挡不住'],
+  ['🏆', '🔥', '👑', '横扫一切', '所到之处 皆为主场'],
+  ['💰', '💎', '🏆', '人生开挂', '系统提示：难度已为你调至简单模式'],
+];
+
+let pullCount = 0;
+let isSpinning = false;
+let comboIndex = 0;
+
+// Shuffle combos
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+const shuffledCombos = shuffle([...combos]);
+
+// ===== BUILD REELS =====
+function buildReel(innerEl) {
+  // Fill with random symbols for spinning effect
+  let html = '';
+  for (let i = 0; i < 40; i++) {
+    const sym = symbols[Math.floor(Math.random() * symbols.length)];
+    html += `<div class="reel-item">${sym}</div>`;
+  }
+  innerEl.innerHTML = html;
+}
+
+const inners = [
+  document.getElementById('inner0'),
+  document.getElementById('inner1'),
+  document.getElementById('inner2')
+];
+
+inners.forEach(buildReel);
+
+// Show initial state
+function setReelTo(innerEl, emoji) {
+  const items = innerEl.querySelectorAll('.reel-item');
+  if (items.length > 0) items[0].textContent = emoji;
+  innerEl.style.transition = 'none';
+  innerEl.style.transform = 'translateY(0)';
+}
+
+setReelTo(inners[0], '❓');
+setReelTo(inners[1], '❓');
+setReelTo(inners[2], '❓');
+
+// ===== PULL =====
+function pull() {
+  if (isSpinning) return;
+  isSpinning = true;
+
+  const btn = document.getElementById('pullBtn');
+  const resultText = document.getElementById('resultText');
+  const resultSub = document.getElementById('resultSub');
+
+  btn.disabled = true;
+  resultText.classList.remove('show');
+  resultSub.classList.remove('show');
+
+  // Pick combo
+  const combo = shuffledCombos[comboIndex % shuffledCombos.length];
+  comboIndex++;
+  pullCount++;
+
+  // Rebuild reels with random symbols + target at end
+  inners.forEach((inner, reelIdx) => {
+    const totalItems = 25 + reelIdx * 8; // stagger stop times
+    let html = '';
+    for (let i = 0; i < totalItems - 1; i++) {
+      const sym = symbols[Math.floor(Math.random() * symbols.length)];
+      html += `<div class="reel-item">${sym}</div>`;
+    }
+    // Last item is the target
+    html += `<div class="reel-item">${combo[reelIdx]}</div>`;
+    inner.innerHTML = html;
+
+    // Reset position
+    inner.style.transition = 'none';
+    inner.style.transform = 'translateY(0)';
+
+    // Force reflow
+    inner.offsetHeight;
+
+    // Animate
+    const targetY = -(totalItems - 1) * 90;
+    const duration = 1.5 + reelIdx * 0.5;
+
+    inner.style.transition = `transform ${duration}s cubic-bezier(0.15, 0.85, 0.35, 1)`;
+    inner.style.transform = `translateY(${targetY}px)`;
+  });
+
+  // Show result after all reels stop
+  const totalDuration = (1.5 + 2 * 0.5) * 1000 + 300;
+
+  setTimeout(() => {
+    resultText.textContent = combo[3];
+    resultText.classList.add('show');
+
+    resultSub.textContent = combo[4];
+    resultSub.classList.add('show');
+
+    // Update counter
+    document.getElementById('counter').textContent = `已拉 ${pullCount} 次 · 每一次都是真的`;
+
+    btn.disabled = false;
+    isSpinning = false;
+
+    // Triple match = jackpot effect
+    if (combo[0] === combo[1] && combo[1] === combo[2]) {
+      launchConfetti();
+    }
+
+    // Every 5 pulls, show jackpot overlay
+    if (pullCount === 5) {
+      setTimeout(() => showJackpot(), 800);
+    }
+
+  }, totalDuration);
+}
+
+// ===== JACKPOT OVERLAY =====
+function showJackpot() {
+  const overlay = document.getElementById('jackpotOverlay');
+  document.getElementById('jackpotText').innerHTML = '🎊 头奖 🎊<br>姐姐 姐夫 新年快乐';
+  document.getElementById('jackpotSub').innerHTML = '祝你们 2026 年<br>发大财 · 事业旺 · 身体好 · 天天开心<br><br>—— 鑫鑫';
+  overlay.classList.add('show');
+  launchConfetti();
+  launchConfetti();
+}
+
+function closeJackpot() {
+  document.getElementById('jackpotOverlay').classList.remove('show');
+}
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  const colors = ['#FFD700', '#C41E3A', '#FF6B6B', '#FFA502', '#FF4757', '#FFEAA7'];
+  const emojis = ['🧧', '💰', '🐴', '✨', '🎊', '💎'];
+
+  for (let i = 0; i < 35; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+
+      if (Math.random() > 0.65) {
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.fontSize = (14 + Math.random() * 12) + 'px';
+      } else {
+        el.style.width = (5 + Math.random() * 7) + 'px';
+        el.style.height = (5 + Math.random() * 7) + 'px';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      }
+
+      const startX = 20 + Math.random() * 60;
+      el.style.left = startX + '%';
+      el.style.top = '50%';
+      document.body.appendChild(el);
+
+      let x = startX, y = 50;
+      let vx = (Math.random() - 0.5) * 8;
+      let vy = -(4 + Math.random() * 6);
+      let opacity = 1;
+      let rot = 0;
+
+      function anim() {
+        vy += 0.14;
+        vx *= 0.99;
+        x += vx * 0.3;
+        y += vy * 0.3;
+        opacity -= 0.01;
+        rot += vx * 3;
+        el.style.left = x + '%';
+        el.style.top = y + '%';
+        el.style.opacity = Math.max(0, opacity);
+        el.style.transform = `rotate(${rot}deg)`;
+        if (opacity > 0 && y < 120) requestAnimationFrame(anim);
+        else el.remove();
+      }
+      anim();
+    }, i * 35);
+  }
+}
+
+// Show initial result text
+document.getElementById('resultText').classList.add('show');
+</script>
+
+</body>
+</html>
