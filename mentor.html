@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>2025 友谊年度报告</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #FFF8F0;
+    --warm-black: #1a1410;
+    --amber: #E8A838;
+    --soft-orange: #F4845F;
+    --blush: #F7C5A8;
+    --deep-brown: #2C1810;
+    --sage: #A8B5A0;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-black);
+    color: var(--cream);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
+  }
+
+  /* === PAGE CONTAINER === */
+  .pages-wrapper {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .page {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 28px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .page.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .page.exit-up {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+
+  /* === PAGE BACKGROUNDS === */
+  .page-0 {
+    background: linear-gradient(160deg, #1a1410 0%, #2C1810 40%, #3D2117 100%);
+  }
+  .page-0::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(232,168,56,0.12) 0%, transparent 70%);
+    top: 15%; right: -10%;
+    border-radius: 50%;
+  }
+
+  .page-1 {
+    background: linear-gradient(160deg, #0F1A2E 0%, #152238 50%, #1A2844 100%);
+  }
+  .page-1::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(100,140,255,0.08) 0%, transparent 70%);
+    bottom: 10%; left: -15%;
+    border-radius: 50%;
+  }
+
+  .page-2 {
+    background: linear-gradient(160deg, #1C1016 0%, #2A1520 50%, #351A28 100%);
+  }
+  .page-2::before {
+    content: '';
+    position: absolute;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(244,132,95,0.1) 0%, transparent 70%);
+    top: 20%; left: -10%;
+    border-radius: 50%;
+  }
+
+  .page-3 {
+    background: linear-gradient(160deg, #0E1A0F 0%, #152218 50%, #1A2C1C 100%);
+  }
+  .page-3::before {
+    content: '';
+    position: absolute;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(168,181,160,0.1) 0%, transparent 70%);
+    bottom: 15%; right: -10%;
+    border-radius: 50%;
+  }
+
+  .page-4 {
+    background: linear-gradient(160deg, #1a1410 0%, #2C1810 50%, #3D2117 100%);
+  }
+  .page-4::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,168,56,0.08) 0%, transparent 70%);
+    top: 30%; left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+  }
+
+  .page-5 {
+    background: linear-gradient(160deg, #1a1410 0%, #1E1612 50%, #231A14 100%);
+  }
+
+  /* === TYPOGRAPHY === */
+  .page-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .big-emoji {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .page.active .big-emoji {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .stat-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 0.3s;
+  }
+
+  .page.active .stat-number {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat-unit {
+    font-size: 1.4rem;
+    font-weight: 400;
+    opacity: 0.6;
+  }
+
+  .stat-label {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.6s ease 0.5s;
+    max-width: 300px;
+  }
+
+  .page.active .stat-label {
+    opacity: 0.75;
+    transform: translateY(0);
+  }
+
+  .stat-detail {
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease 0.7s;
+    margin-top: 16px;
+    color: rgba(255,248,240,0.4);
+    max-width: 280px;
+    line-height: 1.6;
+  }
+
+  .page.active .stat-detail {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === COVER PAGE === */
+  .cover-year {
+    font-size: 7rem;
+    font-weight: 900;
+    letter-spacing: -4px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--amber), var(--blush));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease 0.2s;
+  }
+
+  .page.active .cover-year {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cover-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 12px;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 0.5s;
+  }
+
+  .page.active .cover-title {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+
+  .cover-sub {
+    font-size: 0.85rem;
+    opacity: 0;
+    margin-top: 10px;
+    transition: all 0.6s ease 0.7s;
+    color: rgba(255,248,240,0.35);
+  }
+
+  .page.active .cover-sub {
+    opacity: 1;
+  }
+
+  .cover-start {
+    margin-top: 50px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: all 0.6s ease 1s;
+    color: rgba(255,248,240,0.3);
+    animation: pulse 2s infinite 1.5s;
+  }
+
+  .page.active .cover-start {
+    opacity: 1;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 0.6; transform: translateY(-4px); }
+  }
+
+  /* === ACCENT COLORS PER PAGE === */
+  .page-1 .stat-number { color: #7BA4F7; }
+  .page-2 .stat-number { color: var(--soft-orange); }
+  .page-3 .stat-number { color: var(--sage); }
+  .page-4 .stat-number { color: var(--amber); }
+
+  /* === FINAL PAGE === */
+  .final-msg {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.15rem;
+    line-height: 2.2;
+    max-width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease 0.4s;
+    color: rgba(255,248,240,0.85);
+  }
+
+  .page.active .final-msg {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .final-sign {
+    margin-top: 36px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: all 0.6s ease 1s;
+    color: rgba(255,248,240,0.35);
+  }
+
+  .page.active .final-sign {
+    opacity: 1;
+  }
+
+  .final-sign .heart {
+    display: inline-block;
+    color: var(--soft-orange);
+    animation: heartbeat 1.5s infinite 1.5s;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.25); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+  }
+
+  /* === PROGRESS DOTS === */
+  .progress {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,248,240,0.2);
+    transition: all 0.3s;
+  }
+
+  .dot.active {
+    background: rgba(255,248,240,0.7);
+    height: 20px;
+    border-radius: 3px;
+  }
+
+  /* === FLOATING PARTICLES === */
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(232,168,56,0.3);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* === SWIPE HINT === */
+  .swipe-hint {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    font-size: 0.75rem;
+    color: rgba(255,248,240,0.25);
+    transition: opacity 0.5s;
+  }
+
+  /* === NUMBER COUNTER ANIMATION === */
+  .counter {
+    display: inline-block;
+  }
+
+  /* === SMALL DECORATIVE LINE === */
+  .divider-line {
+    width: 30px;
+    height: 2px;
+    background: rgba(255,248,240,0.15);
+    margin: 20px auto;
+    opacity: 0;
+    transition: all 0.6s ease 0.6s;
+  }
+  .page.active .divider-line { opacity: 1; }
+
+  /* === GENTLE GRAIN OVERLAY === */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width: 380px) {
+    .cover-year { font-size: 5.5rem; }
+    .stat-number { font-size: 4rem; }
+    .page { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- PROGRESS DOTS -->
+<div class="progress" id="progress">
+  <div class="dot active"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
+
+<div class="swipe-hint" id="swipeHint">↑ 向上滑动</div>
+
+<div class="pages-wrapper" id="pagesWrapper">
+
+  <!-- PAGE 0: COVER -->
+  <div class="page page-0 active" data-index="0">
+    <div class="page-label">DLK · Annual Report</div>
+    <div class="cover-year">2025</div>
+    <div class="cover-title">年度感谢报告</div>
+    <div class="cover-sub">写给对我很重要的人</div>
+    <div class="cover-start">↑ 向上滑动开始</div>
+  </div>
+
+  <!-- PAGE 1: 身体健康 -->
+  <div class="page page-1" data-index="1">
+    <div class="page-label">健康监测</div>
+    <span class="big-emoji">💪</span>
+    <div class="stat-number"><span class="counter" data-target="365">0</span></div>
+    <div class="stat-unit" style="opacity:0; transition: all 0.6s ease 0.4s; transform:translateY(10px);">天</div>
+    <div class="divider-line"></div>
+    <div class="stat-label">2026 年<br>希望您身体健康的天数</div>
+    <div class="stat-detail">一天也不能少<br>多一天都算赚到</div>
+  </div>
+
+  <!-- PAGE 2: 天天开心 -->
+  <div class="page page-2" data-index="2">
+    <div class="page-label">快乐指数</div>
+    <span class="big-emoji">😄</span>
+    <div class="stat-number"><span class="counter" data-target="8760">0</span></div>
+    <div class="stat-unit" style="opacity:0; transition: all 0.6s ease 0.4s; transform:translateY(10px);">小时</div>
+    <div class="divider-line"></div>
+    <div class="stat-label">2026 年<br>希望您开开心心的时长</div>
+    <div class="stat-detail">（2026年一共就8760个小时）<br>一个小时都不想让您不开心</div>
+  </div>
+
+  <!-- PAGE 3: 少操心 -->
+  <div class="page page-3" data-index="3">
+    <div class="page-label">操心预警</div>
+    <span class="big-emoji">🧘</span>
+    <div class="stat-number"><span class="counter" data-target="90">0</span><span class="stat-unit">%</span></div>
+    <div class="stat-unit" style="opacity:0; transition: all 0.6s ease 0.4s; transform:translateY(10px);">↓</div>
+    <div class="divider-line"></div>
+    <div class="stat-label">2026 年<br>建议您操心量同比下降</div>
+    <div class="stat-detail">剩下的 10% 留给<br>"今天吃什么"就够了</div>
+  </div>
+
+  <!-- PAGE 4: 转真心 -->
+  <div class="page page-4" data-index="4">
+    <div class="page-label">年度结论</div>
+    <span class="big-emoji">✨</span>
+    <div class="stat-number" style="font-size:2.5rem; line-height:1.4;">
+      <span style="color: var(--amber);">总之</span>
+    </div>
+    <div class="divider-line"></div>
+    <div class="stat-label" style="max-width:280px;">
+      这些年承蒙您关照<br>
+      学到了很多 也成长了不少<br>
+      一直都很感谢您
+    </div>
+    <div class="stat-detail">以上数据可能有误<br>但这句是真的</div>
+  </div>
+
+  <!-- PAGE 5: FINAL -->
+  <div class="page page-5" data-index="5">
+    <span class="big-emoji" style="font-size:2.5rem; margin-bottom:28px;">🧡</span>
+    <div class="final-msg">
+      2026<br>
+      新年快乐<br><br>
+      祝您身体健康<br>
+      万事顺意
+    </div>
+    <div class="final-sign">
+      from DLK <span class="heart">♥</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== SWIPE NAVIGATION =====
+let currentPage = 0;
+const totalPages = 6;
+let isAnimating = false;
+let touchStartY = 0;
+let touchEndY = 0;
+
+const wrapper = document.getElementById('pagesWrapper');
+const pages = document.querySelectorAll('.page');
+const dots = document.querySelectorAll('.dot');
+const hint = document.getElementById('swipeHint');
+
+function goToPage(index) {
+  if (index < 0 || index >= totalPages || isAnimating) return;
+  isAnimating = true;
+
+  const prev = pages[currentPage];
+  const next = pages[index];
+
+  // Direction
+  if (index > currentPage) {
+    prev.classList.remove('active');
+    prev.classList.add('exit-up');
+  } else {
+    prev.classList.remove('active');
+    prev.style.opacity = '0';
+    prev.style.transform = 'translateY(60px)';
+  }
+
+  // Reset next page position before showing
+  next.classList.remove('exit-up');
+  if (index > currentPage) {
+    next.style.transform = 'translateY(60px)';
+  } else {
+    next.style.transform = 'translateY(-60px)';
+  }
+  next.style.opacity = '0';
+
+  setTimeout(() => {
+    next.style.transform = '';
+    next.style.opacity = '';
+    next.classList.add('active');
+    currentPage = index;
+
+    // Update dots
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+
+    // Hide hint after first swipe
+    if (index > 0) hint.style.opacity = '0';
+
+    // Animate counters on this page
+    animateCounters(next);
+
+    // Animate stat-unit
+    next.querySelectorAll('.stat-unit').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+
+    // Clean up previous page
+    setTimeout(() => {
+      prev.classList.remove('exit-up');
+      prev.style.opacity = '';
+      prev.style.transform = '';
+      isAnimating = false;
+    }, 300);
+  }, 50);
+}
+
+// Touch events
+wrapper.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+wrapper.addEventListener('touchend', (e) => {
+  touchEndY = e.changedTouches[0].clientY;
+  const diff = touchStartY - touchEndY;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      goToPage(currentPage + 1); // swipe up = next
+    } else {
+      goToPage(currentPage - 1); // swipe down = prev
+    }
+  }
+}, { passive: true });
+
+// Mouse wheel for desktop
+wrapper.addEventListener('wheel', (e) => {
+  if (e.deltaY > 30) {
+    goToPage(currentPage + 1);
+  } else if (e.deltaY < -30) {
+    goToPage(currentPage - 1);
+  }
+}, { passive: true });
+
+// Keyboard
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    goToPage(currentPage + 1);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    goToPage(currentPage - 1);
+  }
+});
+
+// ===== COUNTER ANIMATION =====
+function animateCounters(page) {
+  page.querySelectorAll('.counter').forEach(counter => {
+    const target = parseInt(counter.dataset.target);
+    const duration = 1500;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = Math.floor(target * ease);
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
+      }
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// ===== FLOATING PARTICLES =====
+function createParticles(page) {
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 3 + 's';
+    p.animate([
+      { transform: 'translateY(0) scale(1)', opacity: 0 },
+      { opacity: 0.4, offset: 0.3 },
+      { transform: `translateY(-${50 + Math.random() * 80}px) scale(0)`, opacity: 0 }
+    ], {
+      duration: 3000 + Math.random() * 3000,
+      iterations: Infinity,
+      delay: Math.random() * 3000
+    });
+    page.appendChild(p);
+  }
+}
+
+pages.forEach(p => createParticles(p));
+
+// ===== INITIAL COUNTER for page 0 (none needed) =====
+// Page 0 is already active, no counters there
+</script>
+
+</body>
+</html>
